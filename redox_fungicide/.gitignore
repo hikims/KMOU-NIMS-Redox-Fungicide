@@ -1,0 +1,19 @@
+# build artifacts
+bin/
+*.o
+*.out
+*.exe
+
+# generated outputs
+results/
+*.dat
+*.txt~
+
+# local/editor files
+.DS_Store
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.pyc

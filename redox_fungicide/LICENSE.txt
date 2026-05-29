@@ -1,0 +1,2 @@
+No open-source license has been selected in this prepared package.
+Before making the GitHub repository public, choose a license that matches the authors' intended reuse policy, such as MIT, BSD-3-Clause, GPL, or an all-rights-reserved notice.

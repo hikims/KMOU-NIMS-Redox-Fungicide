@@ -1,0 +1,7 @@
+Paper item,Driver filename,Config/input,Output data,Notes
+Main Table 4,main_fig2_table3_4_dose_time_maps.cpp,configs/b2_cases.txt,results/TierB/summary/B2_threshold_comparison_<machine>.txt,Finite-time analytical--empirical threshold comparison
+Main Figures 3--4,main_fig3_fig4_verification.cpp,command-line A0 beta,results/time_series/,Phase-transition dynamics and asymptotic threshold verification
+Main Figure 5,main_fig5_spatial_dynamics.cpp,"built-in A0={0,2.25,5} or CLI doses",results/fig5_rerun_A0_0_2p25_5/data/A0_*/field_t*.dat,"Spatial snapshots at t=0,10,50,100"
+Supplementary Figure S1,main_supp_figS1_threshold.cpp,configs/threshold_list.txt,results/threshold_parameter/summary/threshold_estimates.txt,"Empirical threshold versus dA,dF,alpha factors"
+Supplementary Figures S2--S3,main_supp_figS2_S3_sensitivity_curves.cpp,configs/list.txt,results/sensitivity/summary/sensitivity_results.txt,Dose-response burden curves for alpha and dF
+Supplementary Tables S1--S2,main_table_S1_S2_convergence.cpp,command-line A0 and parameter/grid settings,results/summary/summary_A0_vs_area.txt,Convergence summaries and invariant-region diagnostic output

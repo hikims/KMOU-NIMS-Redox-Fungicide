@@ -1,0 +1,6 @@
+# case_id alpha_factor A0_min A0_max
+alpha_0p25 0.25 0.10 1.50
+alpha_0p50 0.50 0.20 2.50
+alpha_1p00 1.00 0.50 4.00
+alpha_1p50 1.50 1.00 5.50
+alpha_2p00 2.00 1.50 7.00
