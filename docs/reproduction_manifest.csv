@@ -1,7 +1,8 @@
-Paper item,Driver filename,Config/input,Output data,Notes
-Main Table 4,main_fig2_table3_4_dose_time_maps.cpp,configs/b2_cases.txt,results/TierB/summary/B2_threshold_comparison_<machine>.txt,Finite-time analytical--empirical threshold comparison
-Main Figures 3--4,main_fig3_fig4_verification.cpp,command-line A0 beta,results/time_series/,Phase-transition dynamics and asymptotic threshold verification
-Main Figure 5,main_fig5_spatial_dynamics.cpp,"built-in A0={0,2.25,5} or CLI doses",results/fig5_rerun_A0_0_2p25_5/data/A0_*/field_t*.dat,"Spatial snapshots at t=0,10,50,100"
-Supplementary Figure S1,main_supp_figS1_threshold.cpp,configs/threshold_list.txt,results/threshold_parameter/summary/threshold_estimates.txt,"Empirical threshold versus dA,dF,alpha factors"
-Supplementary Figures S2--S3,main_supp_figS2_S3_sensitivity_curves.cpp,configs/list.txt,results/sensitivity/summary/sensitivity_results.txt,Dose-response burden curves for alpha and dF
-Supplementary Tables S1--S2,main_table_S1_S2_convergence.cpp,command-line A0 and parameter/grid settings,results/summary/summary_A0_vs_area.txt,Convergence summaries and invariant-region diagnostic output
+Paper item,Driver filename,Shell driver,Config/input,Output data,Plotting script
+Main Figure 2 and Table 2,main_fig2_table3_4_dose_time_maps.cpp,scripts/dose_time_maps_exec.sh,configs/b2_cases.txt,results/dose_time_map/B1_A0_Tobs_map.txt and results/TierB/summary/B2_threshold_comparison_<machine>.txt,scripts/plot_fig2.py
+Main Figures 3-4,main_fig3_fig4_verification.cpp,scripts/time_exec.sh,command-line A0 and beta,results/time_series/,scripts/plot_fig3.py and scripts/plot_fig4.py
+Main Figure 5,main_fig5_spatial_dynamics.cpp,scripts/spatial_dynamics_exec.sh,"built-in A0={0,2.25,5} or CLI doses",results/fig5_rerun_A0_0_2p25_5/data/A0_*/field_*.dat,scripts/plot_fig5.py
+Main Figure 6 and Table 3,main_fig6_front_speed.cpp,scripts/front_speed_exec.sh,"command-line beta and doses; defaults beta=10, A0={0,2.25,5}",results/front_speed/front_beta_*_A0_*.dat and results/front_speed/summary_fig6.txt,scripts/plot_fig6.py
+Supplementary Figures S1-S3,main_supp_figS1_threshold.cpp,scripts/threshold_exec.sh,configs/threshold_list.txt and configs/list.txt,results/threshold_parameter/summary/threshold_scan_results.txt and threshold_estimates.txt,scripts/plot_figS1.py and scripts/plot_figS2_S3.py
+Supplementary Tables S1-S2,main_table_S1_S2_convergence.cpp,scripts/convergence_exec.sh,command-line A0 with grid/time-step settings in src/parameters.h,results/summary/summary_A0_vs_area.txt,none
+Legacy sensitivity study,main_supp_figS2_S3_sensitivity_curves.cpp,scripts/sensitivity_exec.sh,configs/list.txt,results/sensitivity/summary/sensitivity_results.txt,none; superseded by the threshold scan above

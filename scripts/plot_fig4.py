@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Figure 4: Quantitative verification of the asymptotic results.
+Figure 4: Quantitative verification of the recovered-state results.
 
 Panels:
     (a) Fungicide decay against theoretical exponential bounds.
@@ -16,7 +16,7 @@ INPUT
                   final_mean_F  final_max_F  |final_mean_F - F_asymptote|
 
 OUTPUT (written to results/figures/)
-    fig4.png, fig4.eps
+    fig4.pdf, fig4.eps, fig4.png
 
 USAGE
     python scripts/plot_fig4.py                 # A0=0.5, reference beta=10
@@ -26,6 +26,7 @@ USAGE
 
 import sys
 import re
+import os
 from pathlib import Path
 
 import numpy as np
@@ -38,12 +39,37 @@ import matplotlib.ticker as mticker
 # ============================================================
 # Repository-relative paths
 # ============================================================
+# Every script in this repository resolves its inputs and outputs relative to
+# the repository root, so `python scripts/<name>.py` behaves identically on
+# any machine and from any working directory.  Set RESULTS_ROOT
+# if the results tree is stored outside the repository, e.g.
+#     export RESULTS_ROOT=/scratch/redox_fungicide/results
+# This is the same variable the *_exec.sh drivers accept.
 SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SCRIPT_DIR.parent
-DEFAULT_TS_DIR = REPO_ROOT / "results" / "time_series" / "A_R_F_timeseries"
-DEFAULT_GLOBAL_SUM = REPO_ROOT / "results" / "time_series" / "theorem_1_5_II" / "global_summary.txt"
-DEFAULT_OUTDIR = REPO_ROOT / "results" / "figures"
+RESULTS_DIR = Path(
+    os.environ.get("RESULTS_ROOT", REPO_ROOT / "results")
+).expanduser().resolve()
+DEFAULT_OUTDIR = RESULTS_DIR / "figures"
 
+
+def _first_existing(candidates):
+    """First candidate that exists; otherwise the first, for clear errors."""
+    candidates = [Path(p) for p in candidates]
+    for path in candidates:
+        if path.exists():
+            return path
+    return candidates[0]
+
+DEFAULT_TS_DIR = RESULTS_DIR / "time_series" / "A_R_F_timeseries"
+
+# Panel (d) reads the bifurcation summary.  The directory name
+# "theorem_1_5_II" predates the current numbering; it holds the data for
+# Theorem 3.4 (sharp recovered-state transition) of the submitted paper.
+DEFAULT_GLOBAL_SUM = _first_existing([
+    RESULTS_DIR / "time_series" / "recovered_state_transition" / "global_summary.txt",
+    RESULTS_DIR / "time_series" / "theorem_1_5_II" / "global_summary.txt",
+])
 
 # ============================================================
 # Model parameters (keep in sync with configs/parameters.h)
@@ -62,8 +88,14 @@ BETA_CRIT = 1.0 / THETA ** M_EXP
 mpl.rcParams.update({
     "figure.dpi": 120,
     "savefig.dpi": 600,
+    "font.family": "DejaVu Sans",
+    "font.sans-serif": ["DejaVu Sans", "Arial", "Helvetica"],
+    "mathtext.fontset": "dejavusans",
+    "text.usetex": False,
+    "pdf.fonttype": 42,
+    "ps.fonttype": 42,
+    "svg.fonttype": "none",
     "font.size": 12,
-    "font.family": "sans-serif",
     "axes.titlesize": 13,
     "axes.labelsize": 12,
     "xtick.labelsize": 10,
@@ -323,15 +355,19 @@ def main():
 
     fig.tight_layout(rect=[0.02, 0.02, 0.995, 0.995])
 
+    pdf_path = out_dir / "fig4.pdf"
     png_path = out_dir / "fig4.png"
     eps_path = out_dir / "fig4.eps"
 
+    fig.savefig(pdf_path, format="pdf",
+                bbox_inches="tight", facecolor="white", edgecolor="none")
     fig.savefig(png_path, format="png", dpi=600,
                 bbox_inches="tight", facecolor="white", edgecolor="none")
     fig.savefig(eps_path, format="eps",
                 bbox_inches="tight", facecolor="white", edgecolor="none")
     plt.close(fig)
 
+    print(f"saved PDF: {pdf_path}")
     print(f"saved PNG: {png_path}")
     print(f"saved EPS: {eps_path}")
     print("=" * 70)

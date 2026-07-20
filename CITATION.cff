@@ -1,6 +1,7 @@
 cff-version: 1.2.0
-title: "Redox-mediated reaction-diffusion modeling and simulation of fungicide-induced fungal suppression"
+title: "Sharp recovered-state transition and fixed-time critical doses in a redox-coupled fungicide-fungal system: reproducibility drivers"
 message: "If you use this code, please cite the associated manuscript."
+type: software
 authors:
   - family-names: Kim
     given-names: Jong-Ho
@@ -12,3 +13,19 @@ authors:
     given-names: Minsoo
 year: 2026
 version: "submitted-manuscript"
+repository-code: "https://github.com/hikims/KMOU-NIMS-Redox-Fungicide"
+license-url: "LICENSE.txt"
+preferred-citation:
+  type: article
+  title: "Sharp recovered-state transition and fixed-time critical doses in a redox-coupled fungicide-fungal system"
+  journal: "Communications in Nonlinear Science and Numerical Simulation"
+  year: 2026
+  authors:
+    - family-names: Kim
+      given-names: Jong-Ho
+    - family-names: Wi
+      given-names: Yunju
+    - family-names: Jeon
+      given-names: Byeong Jun
+    - family-names: Kim
+      given-names: Minsoo

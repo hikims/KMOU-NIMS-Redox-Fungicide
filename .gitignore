@@ -1,0 +1,11 @@
+# Build artifacts
+bin/
+build/
+
+# Generated outputs
+results/
+
+# Python
+__pycache__/
+*.pyc
+.DS_Store

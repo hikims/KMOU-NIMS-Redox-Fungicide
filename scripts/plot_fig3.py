@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Figure 3: A, R, F dynamics across the asymptotic phase transition.
+Figure 3: A, R, F dynamics across the recovered-state transition.
 
 Two rows:
     Row 1: persistence case   (beta * theta^m < 1,  F survives at 1 - beta*theta^m)
@@ -15,7 +15,7 @@ INPUT
     Columns:  t  meanA meanR meanF  minA maxA  minR maxR  minF maxF  ...
 
 OUTPUT (written to results/figures/)
-    fig3.png, fig3.eps
+    fig3.pdf, fig3.eps, fig3.png
 
 USAGE
     python scripts/plot_fig3.py                 # A0=0.5, beta=8 (persist) / 15 (extinct)
@@ -24,9 +24,11 @@ USAGE
 """
 
 import sys
+import os
 from pathlib import Path
 
 import numpy as np
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 
@@ -34,11 +36,20 @@ import matplotlib.colors as mcolors
 # ============================================================
 # Repository-relative paths
 # ============================================================
+# Every script in this repository resolves its inputs and outputs relative to
+# the repository root, so `python scripts/<name>.py` behaves identically on
+# any machine and from any working directory.  Set RESULTS_ROOT
+# if the results tree is stored outside the repository, e.g.
+#     export RESULTS_ROOT=/scratch/redox_fungicide/results
+# This is the same variable the *_exec.sh drivers accept.
 SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SCRIPT_DIR.parent
-DEFAULT_TS_DIR = REPO_ROOT / "results" / "time_series" / "A_R_F_timeseries"
-DEFAULT_OUTDIR = REPO_ROOT / "results" / "figures"
+RESULTS_DIR = Path(
+    os.environ.get("RESULTS_ROOT", REPO_ROOT / "results")
+).expanduser().resolve()
+DEFAULT_OUTDIR = RESULTS_DIR / "figures"
 
+DEFAULT_TS_DIR = RESULTS_DIR / "time_series" / "A_R_F_timeseries"
 
 # ============================================================
 # Model parameters (keep in sync with configs/parameters.h)
@@ -54,9 +65,16 @@ BETA_CRIT = 1.0 / THETA ** M_EXP   # ~ 11.111
 # ============================================================
 # Plot style
 # ============================================================
-plt.rcParams.update({
+mpl.rcParams.update({
     "figure.dpi": 120,
-    "savefig.dpi": 300,
+    "savefig.dpi": 600,
+    "font.family": "DejaVu Sans",
+    "font.sans-serif": ["DejaVu Sans", "Arial", "Helvetica"],
+    "mathtext.fontset": "dejavusans",
+    "text.usetex": False,
+    "pdf.fonttype": 42,
+    "ps.fonttype": 42,
+    "svg.fonttype": "none",
     "font.size": 14,
     "axes.titlesize": 14,
     "axes.labelsize": 14,
@@ -224,12 +242,15 @@ def main():
 
     fig.tight_layout(rect=[0.04, 0, 1, 0.99])
 
+    out_pdf = out_dir / "fig3.pdf"
     out_eps = out_dir / "fig3.eps"
     out_png = out_dir / "fig3.png"
-    fig.savefig(out_eps, bbox_inches="tight", format="eps")
-    fig.savefig(out_png, bbox_inches="tight", dpi=600)
+    fig.savefig(out_pdf, bbox_inches="tight", format="pdf", facecolor="white", edgecolor="none")
+    fig.savefig(out_eps, bbox_inches="tight", format="eps", facecolor="white", edgecolor="none")
+    fig.savefig(out_png, bbox_inches="tight", dpi=600, facecolor="white", edgecolor="none")
     plt.close(fig)
 
+    print(f"Saved: {out_pdf}")
     print(f"Saved: {out_eps}")
     print(f"Saved: {out_png}")
 
